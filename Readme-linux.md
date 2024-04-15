@@ -26,3 +26,39 @@
     ```bash
     sudo service nginx status	
     ```
+
+7. Grow partition
+https://zebrahost.com/docs/centos/resizing-disk-in-centos-7/
+```
+Grow disk on snak
+sda/sda2-centos-root
+/dev/mapper/centos-root
+
+lsblk
+fdisk -l
+fdisk /dev/sda
+partprobe /dev/sda
+lsblk
+pvresize /dev/sda2
+lvresize /dev/mapper/centos-root /dev/sda2
+resize2fs /dev/mapper/centos-root
+xfs_growfs /dev/centos/root
+df -h
+
+Grow disk on ns1
+sda/sda2-centos_ns2-home
+/dev/mapper/centos_ns2-home
+
+lsblk
+fdisk -l
+fdisk /dev/sda
+partprobe /dev/sda
+lsblk
+pvresize /dev/sda2
+lvresize /dev/mapper/centos_ns2-home /dev/sda2
+resize2fs /dev/mapper/centos_ns2-home
+file -sL /dev/centos_ns2/home
+xfs_growfs /dev/centos_ns2/home
+df -h
+
+```
